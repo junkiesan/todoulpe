@@ -6,6 +6,8 @@ class TasksController < ApplicationController
     # authorize @task
     @tasks = Task.all
     @todo = Task.todo
+    @completed = Task.completed
+    end
     respond_to do |f|
       f.html
       f.json { render json: @tasks }

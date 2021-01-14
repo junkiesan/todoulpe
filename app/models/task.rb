@@ -5,6 +5,7 @@ class Task < ApplicationRecord
 
   # Scopes
   scope :todo, -> { where(status: false).order(id: :desc) }
+  scope :completed, -> { where(status: true).order(id: :desc) }
 
   # Validations
   validates :priority, inclusion: { in: ["chill", "work", "hardcore"] }
