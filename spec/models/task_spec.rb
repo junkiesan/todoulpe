@@ -34,7 +34,15 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  # Validation tests  
+  # Validation tests
+
+  describe Task, "#title" do
+    it "checks that task title is not too long" do
+      task = Task.new(title: "Hello this is such a long task to do i need to comment it inside the title")
+      expect(task.title.length).to be < 35
+    end
+  end
+
   describe Task, "#status?" do
     it "checks that status is true" do
       task = Task.new(status: true)
@@ -62,7 +70,7 @@ RSpec.describe Task, type: :model do
 
     it "checks that task deadline is over" do
       task = Task.new(deadline: Date.yesterday)
-      expect(task.deadline).to be > Date.new
+      expect(task.status).to be eq(@task)
     end
   end
 end
