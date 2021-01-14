@@ -7,7 +7,7 @@ class TasksController < ApplicationController
     @tasks = Task.all
     @todo = Task.todo
     @completed = Task.completed
-    end
+
     respond_to do |f|
       f.html
       f.json { render json: @tasks }
@@ -18,9 +18,21 @@ class TasksController < ApplicationController
   end
 
   def new
+    @task = Task.new
   end
 
   def create
+    @task = Task.new(task_params)
+
+    respond_to do |f|
+      if @task.save 
+        format.html { redirect_to @task }
+        format.js
+      else
+        format.html { render :new }
+        format.js { error }
+      end
+    end
   end
 
   def update
