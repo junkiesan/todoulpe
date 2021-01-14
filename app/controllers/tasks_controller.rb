@@ -2,11 +2,13 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
 
   def index
-    @task = Task.all
-
+    # @tasks = policy_scope(Task)
+    # authorize @task
+    @tasks = Task.all
+    @todo = Task.todo
     respond_to do |f|
       f.html
-      f.json { render json: @todos }
+      f.json { render json: @tasks }
     end
   end
 
