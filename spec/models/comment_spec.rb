@@ -36,3 +36,11 @@ describe Comment, "#destroy" do
     expect(Comment.find_by(details: "I should add more tentacles and more colors")).to be_nil
   end
 end
+
+# Active Record
+describe Comment, "#details" do
+  it "checks that comment details are not too long" do
+    comment = Comment.new(details: "azertyuiopoiuytrezazertyuioppoiuytrezertyuioppoiuytrezertyuio")
+    expect(comment.details.length).to be < 100
+  end
+end
