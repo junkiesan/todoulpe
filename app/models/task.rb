@@ -8,7 +8,7 @@ class Task < ApplicationRecord
   validates :title, presence: true
   validates :title, length: { in: 3..30,
     too_long: "30 characters is the maximum allowed"}
-  validates :check_expiracy
+  validate :check_expiracy
 
   # Send error if deadline expired
   def check_expiracy

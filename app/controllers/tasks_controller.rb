@@ -2,6 +2,12 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
 
   def index
+    @task = Task.all
+
+    respond_to do |f|
+      f.html
+      f.json { render json: @todos }
+    end
   end
 
   def show
