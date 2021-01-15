@@ -1,2 +1,22 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<p>
+  <strong>Title:</strong>
+  <%= @task.title %>
+</p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= @task.priority %>
+</p>
+
+<p>
+  <strong>Deadline:</strong>
+  <%= @task.deadline %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @task.status %>
+</p>
+
+<%= link_to 'Update', update_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>
