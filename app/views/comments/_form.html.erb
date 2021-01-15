@@ -1,4 +1,4 @@
-<%= simple_form_for(Comment.new) do |f| %>
+<%= simple_form_for(Comment.new, :url => { :action => "create" }) do |f| %>
   <%= f.input :details %>
   <%= f.button :submit %>
 <% end %>
