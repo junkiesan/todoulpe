@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
   
   # GET /tasks
   def index
@@ -23,6 +23,9 @@ class TasksController < ApplicationController
     authorize @task
   end
 
+  def edit
+    authorize @task
+  end
   # GET /tasks/new
   def new
     @task = Task.new

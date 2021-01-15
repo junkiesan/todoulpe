@@ -13,7 +13,7 @@ class TaskPolicy < ApplicationPolicy
   end
   
     def show?
-      false
+      true
     end
   
     def create?
@@ -21,11 +21,13 @@ class TaskPolicy < ApplicationPolicy
     end
   
     def update?
-      record.user == current_user
+      true
+      # record.user == current_user
     end
   
     def destroy?
-      record.user == current_user
+      true
+      # record.user == current_user
     end
   
     def write_comment
