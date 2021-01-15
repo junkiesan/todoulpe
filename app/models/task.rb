@@ -12,15 +12,15 @@ class Task < ApplicationRecord
   validates :title, presence: true
   validates :title, length: { in: 3..30,
     too_long: "30 characters is the maximum allowed"}
-  validate :check_expiracy
-
-  # Send error if deadline expired
-  def check_expiracy
-    errors.add(:deadline, "the deadline is here") if self.deadline.expired?
-  end
+  validate :expired?
 
   # Checking if deadline is not expired
   def expired?
     self.deadline > Date.today ? priority == "hardcore" : priority
   end
+ 
+  # Send error if deadline expired
+  # def check_expiracy
+  #   errors.add(:deadline, "the deadline is here") if self.deadline.expired?
+  # end
 end
