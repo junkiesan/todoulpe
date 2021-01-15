@@ -19,12 +19,24 @@ class CommentsController < ApplicationController
   end
 
   def create
-  end
-
-  def update
+    @comment = Comment.new(comment_params)
+    @task = Task.find(params[:task_id])
+    respond_to do |f|
+      if @comment.save
+        f.html { redirect_to @task, notice: 'Task created successfully'}
+        f.json
+      else
+        f.html { render :show }
+        f.json { error }
+    end
   end
 
   def destroy
+    @comment.destroy
+    respond_to do |f|
+      f.html { redirect_to task_url }
+      f.json { render :index }
+    end
   end
 
   private

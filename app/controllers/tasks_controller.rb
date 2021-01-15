@@ -52,7 +52,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |f|
-      f.html { redirect_to root_path }
+      f.html { redirect_to task_url }
       f.json { render :index }
     end
   end
