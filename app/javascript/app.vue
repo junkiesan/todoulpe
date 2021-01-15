@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <p>{{ message }}</p>
+    <p><strong><i>Hello World</i></strong></p>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ export default {
 
 <style scoped>
 p {
+  font-family: 'Amiri', serif;
   font-size: 2em;
   text-align: center;
 }
