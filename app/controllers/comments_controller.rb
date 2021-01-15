@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @task = Task.find(params[:task_id])
     @comment.task = @task
-    @comment.user = current_user
+    # @comment.user = current_user
     authorize @comment
     
     respond_to do |f|
