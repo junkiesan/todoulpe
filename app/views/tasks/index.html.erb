@@ -8,6 +8,6 @@
 
 <div style="margin: 30px;">
   <% @completed.each do |task| %>
-    <%= render task %>
+    <%= render 'task', task: task %>
   <% end %>
 </div>
