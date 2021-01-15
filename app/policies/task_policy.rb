@@ -13,11 +13,11 @@ class TaskPolicy < ApplicationPolicy
   end
   
     def show?
-      record.user == current_user
+      false
     end
   
     def create?
-      record.user == current_user
+      true
     end
   
     def update?

@@ -4,11 +4,12 @@ class TasksController < ApplicationController
   # GET /tasks
   def index
     # pundit scope
+    # @task = Task.new
     @tasks = policy_scope(Task)
     # Defined all kind of tasks
     @tasks = Task.all
-    @todo = Task.todo
-    @completed = Task.completed
+    # @todo = Task.todo
+    # @completed = Task.completed
 
     respond_to do |f|
       f.html
@@ -30,16 +31,17 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
+    @tasks = Task.all
     @task = Task.new(task_params)
     authorize @task
 
     respond_to do |f|
       if @task.save 
-        f.html { redirect_to @task }
-        f.json
+        f.html { redirect_to @task, notice: 'Task was successfully created.'  }
+        f.json { render :show, status: :created, location: @task }
       else
-        f.html { render :new }
-        f.json { error }
+        f.html { render :index }
+        f.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -49,11 +51,11 @@ class TasksController < ApplicationController
     authorize @task
     respond_to do |f|
       if @task.update(task_params)
-        f.html { redirect_to @task }
-        f.json { render :show }
+        f.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        f.json { render :show, status: :ok, location: @task }
       else 
         f.html { render :edit }
-        f.json { error }
+        f.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -63,8 +65,8 @@ class TasksController < ApplicationController
     @task.destroy
     authorize @task
     respond_to do |f|
-      f.html { redirect_to task_url }
-      f.json { render :index }
+      f.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      f.json { head :no_content }
     end
   end
 
@@ -77,6 +79,6 @@ class TasksController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def task_params
-    params.permit(:title, :priority, :deadline, :status)
+    params.require(:task).permit(:title, :priority, :deadline, :status)
   end
 end
