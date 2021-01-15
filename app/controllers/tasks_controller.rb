@@ -1,9 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
-
+  
+  # GET /tasks
   def index
-    # @tasks = policy_scope(Task)
-    # authorize @task
+    # pundit scope
+    @tasks = policy_scope(Task)
     # Defined all kind of tasks
     @tasks = Task.all
     @todo = Task.todo
@@ -15,16 +16,22 @@ class TasksController < ApplicationController
     end
   end
 
+  # GET /tasks/:id
   def show
     render json: @tasks
+    authorize @task
   end
 
+  # GET /tasks/new
   def new
     @task = Task.new
+    authorize @task
   end
 
+  # POST /tasks
   def create
     @task = Task.new(task_params)
+    authorize @task
 
     respond_to do |f|
       if @task.save 
@@ -37,7 +44,9 @@ class TasksController < ApplicationController
     end
   end
 
+  # PATCH/PUT /tasks/:id
   def update
+    authorize @task
     respond_to do |f|
       if @task.update(task_params)
         f.html { redirect_to @task }
@@ -49,8 +58,10 @@ class TasksController < ApplicationController
     end
   end
 
+  # DELETE /tasks/:id
   def destroy
     @task.destroy
+    authorize @task
     respond_to do |f|
       f.html { redirect_to task_url }
       f.json { render :index }
