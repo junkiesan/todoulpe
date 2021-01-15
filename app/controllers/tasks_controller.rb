@@ -27,11 +27,11 @@ class TasksController < ApplicationController
 
     respond_to do |f|
       if @task.save 
-        format.html { redirect_to @task }
-        format.json
+        f.html { redirect_to @task }
+        f.json
       else
-        format.html { render :new }
-        format.json { error }
+        f.html { render :new }
+        f.json { error }
       end
     end
   end
@@ -39,16 +39,21 @@ class TasksController < ApplicationController
   def update
     respond_to do |f|
       if @task.update(task_params)
-        format.html { redirect_to @task }
-        format.json { render :show }
+        f.html { redirect_to @task }
+        f.json { render :show }
       else 
-        format.html { render :edit }
-        format.json { error }
+        f.html { render :edit }
+        f.json { error }
       end
     end
   end
 
   def destroy
+    @card.destroy
+    respond_to do |f|
+      f.html { redirect_to tasks_url }
+      f.json { render :index }
+    end
   end
 
   private
