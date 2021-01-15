@@ -1,26 +1,3 @@
-<div style="margin: 30px;">
-  <%# @todo.each do |task| %>
-    <%#= task.title %>
-    <%#= task.deadline %>
-    <%#= task.priority %>
-
-  <%# end %>
-</div>
-
-<div style="margin: 30px;">
-  <%# @completed.each do |task| %>
-    <%#= render 'task', task: task %>
-  <%# end %>
-</div>
-
-<div style="margin: 30px;">
-  <% @tasks.each do |task| %>
-    <%= render 'task', task: task %>
-    <%= simple_form_for [@task, @comment] do |f| %>
-      <%= f.input :details %>
-      <%= f.button :submit %>
-    <% end %>
-  <% end %>
-</div>
-
+<%= javascript_pack_tag 'hello_vue' %> 
 <%= link_to 'New Task', new_task_path %>
+<%= tag.div id: :project, data: { tasks: @tasks.to_json(include: :comments) } %>
