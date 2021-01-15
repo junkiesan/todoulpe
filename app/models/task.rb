@@ -23,4 +23,7 @@ class Task < ApplicationRecord
   # def check_expiracy
   #   errors.add(:deadline, "the deadline is here") if self.deadline.expired?
   # end
+
+  # Constant for priorities inputs
+  PRIORITY = ["chill", "work", "hardcore"]
 end
