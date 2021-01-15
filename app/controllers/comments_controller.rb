@@ -28,6 +28,7 @@ class CommentsController < ApplicationController
       else
         f.html { render :show }
         f.json { error }
+      end
     end
   end
 

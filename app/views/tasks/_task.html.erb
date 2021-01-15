@@ -3,6 +3,7 @@
   <li><%= task.priority %></li>
   <li><%= task.deadline %></li>
   <li><%= task.status %></li>
+  <%= render 'comments/form' %>
   <li><%= link_to 'Show', task %></li>
   <li><%= link_to 'Edit', edit_task_path(task) %></li>
   <li><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></li>
