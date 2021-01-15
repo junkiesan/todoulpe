@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     @tasks = Task.all
     # @todo = Task.todo
     # @completed = Task.completed
-
+    @comment = Comment.new
     respond_to do |f|
       f.html
       f.json { render json: @tasks }
@@ -33,6 +33,7 @@ class TasksController < ApplicationController
   def create
     @tasks = Task.all
     @task = Task.new(task_params)
+    @task.user = current_user
     authorize @task
 
     respond_to do |f|
