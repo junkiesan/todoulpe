@@ -11,18 +11,21 @@ class CommentsController < ApplicationController
   end
 
   def show
+    authorize @comment
   end
 
   def new
     @task = Task.find(params[:task_id])
     @comment = Comment.new
+    authorize @comment
   end
 
   def create
     @comment = Comment.new(comment_params)
     @task = Task.find(params[:task_id])
     @comment.task = @task
-    @comment.user = current_user
+    # @comment.user = current_user
+    authorize @comment
     
     respond_to do |f|
       if @comment.save
@@ -37,6 +40,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
+    authorize @comment
     respond_to do |f|
       f.html { redirect_to task_url }
       f.json { render :index }

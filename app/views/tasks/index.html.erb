@@ -16,6 +16,10 @@
 <div style="margin: 30px;">
   <% @tasks.each do |task| %>
     <%= render 'task', task: task %>
+    <%= simple_form_for [@task, @comment] do |f| %>
+      <%= f.input :details %>
+      <%= f.button :submit %>
+    <% end %>
   <% end %>
 </div>
 

@@ -4,7 +4,6 @@ class TasksController < ApplicationController
   # GET /tasks
   def index
     # pundit scope
-    # @task = Task.new
     @tasks = policy_scope(Task)
     # Defined all kind of tasks
     @tasks = Task.all
