@@ -1,3 +1,3 @@
 <%= javascript_pack_tag 'hello_vue' %> 
 <%= link_to 'New Task', new_task_path %>
-<%= tag.div id: :tasks, data: { tasks: @tasks.to_json(include: :comments) } %>
+<%= tag.div id: :project, data: { tasks: @tasks.to_json(include: :comments) } %>

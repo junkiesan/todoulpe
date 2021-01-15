@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <h1><strong><i>{{ message }}</i></strong></h1>
+    <li v-for="task in original_tasks" v-bind:key="task.id">
+      <h1>{{ task.title }}</h1>
+    </li>
   </div>
 </template>
 
 <script>
+import Rails from '@rails/ujs';
+
 export default {
-  data: function () {
-    return {
-      message: "Todoulpe"
-    }
+  props: ["original_tasks"],
   }
-}
 </script>
 
 <style scoped>
