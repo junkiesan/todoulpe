@@ -15,6 +15,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    render json: @tasks
   end
 
   def new
