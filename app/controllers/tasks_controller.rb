@@ -28,15 +28,24 @@ class TasksController < ApplicationController
     respond_to do |f|
       if @task.save 
         format.html { redirect_to @task }
-        format.js
+        format.json
       else
         format.html { render :new }
-        format.js { error }
+        format.json { error }
       end
     end
   end
 
   def update
+    respond_to do |f|
+      if @task.update(task_params)
+        format.html { redirect_to @task }
+        format.json { render :show }
+      else 
+        format.html { render :edit }
+        format.json { error }
+      end
+    end
   end
 
   def destroy
