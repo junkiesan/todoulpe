@@ -50,7 +50,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @card.destroy
+    @task.destroy
     respond_to do |f|
       f.html { redirect_to root_path }
       f.json { render :index }
