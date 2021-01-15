@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   def index
     # @tasks = policy_scope(Task)
     # authorize @task
+    # Defined all kind of tasks
     @tasks = Task.all
     @todo = Task.todo
     @completed = Task.completed
@@ -51,7 +52,7 @@ class TasksController < ApplicationController
   def destroy
     @card.destroy
     respond_to do |f|
-      f.html { redirect_to tasks_url }
+      f.html { redirect_to root_path }
       f.json { render :index }
     end
   end

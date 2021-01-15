@@ -1,5 +1,13 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
-<ul>
-  <%#= render @tasks %>
-</ul>
+<%= render 'form' %>
+
+<div style="margin: 30px;">
+  <% @todo.each do |task| %>
+    <%= render task %>
+  <% end %>
+</div>
+
+<div style="margin: 30px;">
+  <% @completed.each do |task| %>
+    <%= render task %>
+  <% end %>
+</div>
