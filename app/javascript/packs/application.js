@@ -15,3 +15,21 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+import Vue from "vue/dist/vue.esm"
+import App from '../app.vue'
+
+document.addEventListener('turbolinks:load', () => {
+  //   // Call your functions here, e.g:
+  //   // initSelect2();
+    let table = document.querySelector("#project")
+    if (table != undefined) {
+      window.store.tasks = JSON.parse(table.dataset.tasks)
+  
+      const app = new Vue({
+        el: table,
+        data: window.store,
+        template: "<App :original_tasks='tasks' />",
+        components: { App }
+      })
+    }
+  });
