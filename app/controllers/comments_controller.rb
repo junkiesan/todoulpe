@@ -2,12 +2,20 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
 
   def index
+    @comments = Comment.all
+
+    respond_to do |f|
+      f.html
+      f.json { render json: @comments }
+    end
   end
 
   def show
   end
 
   def new
+    @task = Task.find(params[:task_id])
+    @comment = Comment.new
   end
 
   def create
