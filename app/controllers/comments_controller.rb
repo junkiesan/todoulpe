@@ -21,6 +21,9 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @task = Task.find(params[:task_id])
+    @comment.task = @task
+    @comment.user = current_user
+    
     respond_to do |f|
       if @comment.save
         f.html { redirect_to @task, notice: 'Task created successfully'}

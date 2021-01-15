@@ -1,13 +1,20 @@
-<%= render 'form' %>
-
 <div style="margin: 30px;">
-  <% @todo.each do |task| %>
-    <%= render task %>
-  <% end %>
+  <%# @todo.each do |task| %>
+    <%#= task.title %>
+    <%#= task.deadline %>
+    <%#= task.priority %>
+
+  <%# end %>
 </div>
 
 <div style="margin: 30px;">
-  <% @completed.each do |task| %>
+  <%# @completed.each do |task| %>
+    <%#= render 'task', task: task %>
+  <%# end %>
+</div>
+
+<div style="margin: 30px;">
+  <% @tasks.each do |task| %>
     <%= render 'task', task: task %>
   <% end %>
 </div>

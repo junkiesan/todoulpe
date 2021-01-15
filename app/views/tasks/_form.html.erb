@@ -1,4 +1,8 @@
-<%= simple_form_for(Task.new) do |f| %>
+<%= simple_form_for(@task) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   <%= f.input :title %>
+  <%= f.input :deadline, as: :string, label: "Dates", placeholder: "Deadline", wrapper_html: { class: "inline_field_wrapper" } %>
+  <%= f.input :priority, label: false, prompt: 'Priority', collection: Task::PRIORITY %>
   <%= f.button :submit %>
 <% end %>
