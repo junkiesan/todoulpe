@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container border">
     <!-- NEW TASK FORM -->
     <div class="row new">
       <form class="form-inline" @submit.prevent="addTask">
@@ -20,19 +20,17 @@
         <input type="date" class="form-control mb-2 mr-sm-2" id="inline-password" v-model="newTaskDeadline">
       </form>
     </div>
+
     <!-- DISPLAY TASK NOT DONE  -->
-    <!-- <div>
-      <ul class="collection">
-        <li v-bind:id="'row_task_' + task.id" class="collection-item" v-for="task in tasks" v-if="!task.is_done">
-          <input type="checkbox" v-bind:id="'task_' + task.id" v-on:change="doneTask(task.id)" />
-          <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.name }}</label>
-        </li>
+    <div>
+      <ul class="container">
+        <li></li>
       </ul>
-    </div> -->
+    </div>
     <!-- DISPLAY TASK NOT DONE  -->
     <!-- <div>
-      <ul class="collection">
-        <li v-bind:id="'row_task_' + task.id" class="collection-item" v-for="task in tasks" v-if="!task.is_done">
+      <ul class="container">
+        <li v-for="task in listTasks" :key="task.status">
           <input type="checkbox" v-bind:id="'task_' + task.id" v-on:change="doneTask(task.id)" />
           <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.name }}</label>
         </li>
@@ -48,8 +46,10 @@ import Rails from '@rails/ujs';
 export default {
   data: function () {
     return {
-      tasks: [],
+      listTasks: this.original_tasks,
       newTask: '',
+      todo: [],
+      completed: [],
     }
   },
   methods: {
@@ -73,6 +73,16 @@ export default {
             this.$nextTick(() => { this.$refs.newTaskPriority.focus() })
           }
       })
+    },
+    checkStatus: function () {
+      if(task.status === false){
+        this.todo.push(this.task)
+      } else {
+        this.completed.push(this.task)
+      }
+    },
+    fillTasks: function () {
+
     }
   }
 }
@@ -83,5 +93,10 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center
+  }
+
+  .border {
+    border: 10px solid #BCEED9;
+    border-radius: 5px;
   }
 </style>

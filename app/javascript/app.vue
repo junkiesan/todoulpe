@@ -2,7 +2,24 @@
   <div id="app">
     <navheader></navheader>
     <tabProject></tabProject>
-    {{tasks}}
+    <div>
+      <ul class="container">
+        <li v-if="task.status === false" v-for="task in tasks" :key="task.status">
+          <input type="checkbox" v-bind:id="'task_' + task.id" v-on:change="doneTask(task.id)" />
+          <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.title }}</label>
+          <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.priority }}</label>
+          <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.deadline }}</label>
+        </li>
+      </ul>
+      <ul class="container">
+        <li v-if="task.status === true" v-for="task in tasks" :key="task.status">
+          <input type="checkbox" v-bind:id="'task_' + task.id" v-on:change="doneTask(task.id)" />
+          <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.title }}</label>
+          <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.priority }}</label>
+          <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.deadline }}</label>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -21,6 +38,18 @@ export default {
     return {
       tasks: this.original_tasks
     }
+  },
+  methods: {
+    doneTask: function () {
+      var data = new FormData
+      data.append("task[status]", true)
+      Rails.ajax({
+        url: `tasks/${task.id}`,
+        type: "PATCH",
+        data: data,
+        dataType: "json",
+      })
+    },
   }
 }
 </script>

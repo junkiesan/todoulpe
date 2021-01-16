@@ -4,7 +4,7 @@
     <h2>La todo des PM qui gèrent leurs features comme des poulpes !</h2>
     <div class="projectGroup">
       <p>Projet: {{ projectName }}</p>
-      <form class="form-inline" @submit.prevent="formSubmitted">
+      <form class="form-inline" @submit.prevent="formSubmitted" v-if="projectName.length < 1">
         <input type="text" id="projectName" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Type name here..." v-model="newNameText" @keyup.space="keyPressed">
       </form>
     </div>
@@ -28,7 +28,6 @@ export default {
       if(this.newNameText.length > 0) {
         this.projectName = this.newNameText
         this.newNameText = ''
-        // input.display.destroy
       }
     }
   },
