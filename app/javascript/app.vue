@@ -1,16 +1,18 @@
 <template>
   <div id="app">
     <navheader></navheader>
-    
+    <tabProject></tabProject>
   </div>
 </template>
 
 <script>
 import Header from './packs/components/Header.vue'
+import Project from './packs/components/task/Project.vue'
 
 export default {
   components: {
-    navheader: Header
+    navheader: Header,
+    tabProject: Project
   }
   }
 </script>
