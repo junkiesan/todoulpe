@@ -63,7 +63,7 @@ document.addEventListener('turbolinks:load', () => {
     el: '#app',
     data: () => {
       return {
-        message: "Can you say hello?"
+      
       }
     },
     components: { App }

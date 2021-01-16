@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <navheader></navheader>
-    <p>Hello</p>
   </div>
 </template>
 
@@ -18,6 +17,7 @@ export default {
 <style scoped>
 body {
   font-family: 'Space Mono', monospace;
+  background: #e8f7f0
 }
 h1 {
   font-family: 'Amiri', serif;
