@@ -74,16 +74,6 @@ export default {
           }
       })
     },
-    checkStatus: function () {
-      if(task.status === false){
-        this.todo.push(this.task)
-      } else {
-        this.completed.push(this.task)
-      }
-    },
-    fillTasks: function () {
-
-    }
   }
 }
 </script>

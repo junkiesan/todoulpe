@@ -4,16 +4,16 @@
     <tabProject></tabProject>
     <div>
       <ul class="container">
-        <li v-if="task.status === false" v-for="task in tasks" :key="task.status">
-          <input type="checkbox" v-bind:id="'task_' + task.id" v-on:change="doneTask(task.id)" />
+        <li v-if="task.status === false" v-for="task in tasks" :key="task.id">
+          <input type="checkbox"  v-on:change="doneTask(task.id)" v-model="task.status" />
           <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.title }}</label>
           <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.priority }}</label>
           <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.deadline }}</label>
         </li>
       </ul>
       <ul class="container">
-        <li v-if="task.status === true" v-for="task in tasks" :key="task.status">
-          <input type="checkbox" v-bind:id="'task_' + task.id" v-on:change="doneTask(task.id)" />
+        <li v-if="task.status === true" v-for="task in tasks" :key="task.id">
+          <input type="checkbox" />
           <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.title }}</label>
           <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.priority }}</label>
           <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.deadline }}</label>
@@ -36,18 +36,26 @@ export default {
   props: ['original_tasks'],
   data: function () {
     return {
-      tasks: this.original_tasks
+      tasks: this.original_tasks,
+      status: false,
     }
   },
   methods: {
     doneTask: function () {
+      this.status = true
       var data = new FormData
-      data.append("task[status]", true)
+      data.append("task[status]", this.status)
       Rails.ajax({
         url: `tasks/${task.id}`,
         type: "PATCH",
         data: data,
         dataType: "json",
+        success: (data) => {
+          const index = window.store.tasks.findIndex(item => item.id == this.task.id)
+          window.store.tasks[index].tasks.push(data)
+          this.message = ""
+          this.$nextTick(() => { this.$refs.newStatus.focus() })
+        }
       })
     },
   }
