@@ -3,12 +3,11 @@
     <li v-for="task in original_tasks" v-bind:key="task.id">
       <h1>{{ task.title }}</h1>
     </li>
+    <p>Hello</p>
   </div>
 </template>
 
 <script>
-import Rails from '@rails/ujs';
-
 export default {
   props: ["original_tasks"],
   }

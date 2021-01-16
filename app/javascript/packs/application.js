@@ -15,26 +15,38 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-import TurbolinksAdapter from 'vue-turbolinks'
+// import TurbolinksAdapter from 'vue-turbolinks'
 
-import Vue from 'vue/dist/vue.esm'
-import App from '../app.vue'
+// import Vue from 'vue/dist/vue.esm'
+// import App from '../app.vue'
 
-window.store = {}
-Vue.use(TurbolinksAdapter)
+// window.store = {}
+// Vue.use(TurbolinksAdapter)
 
-document.addEventListener('turbolinks:load', () => {
+// document.addEventListener('turbolinks:load', () => {
   //   // Call your functions here, e.g:
   //   // initSelect2();
-    const element = document.querySelector("#project")
-    if (element != undefined) {
-      window.store.tasks = JSON.parse(element.dataset.tasks)
+  //   const element = document.querySelector("#project")
+  //   if (element != undefined) {
+  //     window.store.lists = JSON.parse(element.dataset.lists)
   
-      const app = new Vue({
-        el: element,
-        data: window.store,
-        template: "<App :original_tasks='tasks' />",
-        components: { App }
-      })
-    }
-  });
+  //     const app = new Vue({
+  //       el: element,
+  //       data: window.store,
+  //       template: "<App :original_tasks='tasks' />",
+  //       components: { App }
+  //     })
+  //   }
+  // });
+
+  import Vue from 'vue'
+  import App from '../app.vue'
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const app = new Vue({
+      render: h => h(App)
+    }).$mount()
+    document.body.appendChild(app.$el)
+  
+    console.log(app)
+  })
