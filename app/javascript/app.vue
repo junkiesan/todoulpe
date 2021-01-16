@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <navheader></navheader>
+    <p>Completed: <span id="counter">0</span>/{{tasks.length}}:</p>
+    <progress class="progress-bar" value="0" max="100" id="taskProgress">0%</progress>
+
        <!-- NEW TASK FORM -->
     <div class="container border">
       <div class="row new">
@@ -51,6 +54,7 @@
 <script>
 import Rails from '@rails/ujs';
 import Header from './packs/components/Header.vue'
+import { EventBus } from './packs/application.js'
 
 export default {
   components: {
@@ -103,6 +107,20 @@ export default {
           }
       })
     },
+      taskCompleted: function () {
+      EventBus.$emit('mark-as-completed', this.status)
+    }
+  },
+  created: function () {
+    EventBus.$on('mark-as-completed', function(data) {
+      if(data) {
+        document.getElementById('counter').innerText--;
+        document.getElementById('taskProgress').value-=25;
+      } else {
+        document.getElementById('counter').innerText++;
+        document.getElementById('taskProgress').value+=25;
+      }
+    })
   }
 }
 </script>
@@ -121,6 +139,15 @@ export default {
     text-align: center;
   }
 
+  .progress-bar {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    background: #3C2E58;
+    background-color: #BCEED9;
+    box-shadow: 1px 1px 4px rgba( 0, 0, 0, 0.2 );
+    width: 75%;
+  }
   .new {
     display: flex;
     flex-direction: row;
