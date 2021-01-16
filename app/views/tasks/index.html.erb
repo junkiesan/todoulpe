@@ -1,11 +1,9 @@
 <%#= link_to 'New Task', new_task_path %>
-<%#= tag.div id: :project, data: { tasks: @tasks.to_json(include: :comments) } %>
-
+<%= tag.div id: :project, data: { tasks: @tasks.to_json(include: :comments) } %>
 
 <div id="app">
   {{message}}
   <app></app>
 </div>
-
 
 <%= javascript_pack_tag 'application' %>

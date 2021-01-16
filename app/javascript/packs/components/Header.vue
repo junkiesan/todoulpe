@@ -28,7 +28,7 @@ export default {
       if(this.newNameText.length > 0) {
         this.projectName = this.newNameText
         this.newNameText = ''
-        input.display.destroy
+        // input.display.destroy
       }
     }
   },
