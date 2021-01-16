@@ -1,17 +1,28 @@
 <template>
   <div id="app">
     <navheader></navheader>
+    <tabProject></tabProject>
+    {{tasks}}
   </div>
 </template>
 
 <script>
+import Rails from '@rails/ujs';
 import Header from './packs/components/Header.vue'
+import Project from './packs/components/task/Project.vue'
 
 export default {
   components: {
-    navheader: Header
+    navheader: Header,
+    tabProject: Project
+  },
+  props: ['original_tasks'],
+  data: function () {
+    return {
+      tasks: this.original_tasks
+    }
   }
-  }
+}
 </script>
 
 <style scoped>
