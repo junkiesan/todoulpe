@@ -1,12 +1,17 @@
 <template>
   <div id="app">
+    <navheader></navheader>
     <p>Hello</p>
   </div>
 </template>
 
 <script>
+import Header from './packs/components/Header.vue'
+
 export default {
-  
+  components: {
+    navheader: Header
+  }
   }
 </script>
 
