@@ -24,10 +24,13 @@ export default {
 </script>
 
 <style>
-.container {
-  max-width: 1100px;
-  margin: auto;
-  overflow: auto;
-  padding: 0 2rem;
-}
+  p {
+    font-family: 'Space Mono', monospace;
+  }
+  .container {
+    max-width: 1100px;
+    margin: auto;
+    overflow: auto;
+    padding: 0 2rem;
+  }
 </style>
