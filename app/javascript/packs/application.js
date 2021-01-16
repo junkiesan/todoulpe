@@ -54,6 +54,7 @@ import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
 import App from '../app.vue'
 // import Router from './router/router.js'
+export const EventBus = new Vue();
 
 window.store = {}
 Vue.use(TurbolinksAdapter)
