@@ -36,7 +36,7 @@ I did a parallel between the logo, the progress bar and the tasks :
 
 I will deliver the product with a mock login already made up and a list of all users’ stories I needed to complete for the test.
 
-[Here is the link to the figma:](https://www.figma.com/file/QYftIdEte7uYYGtIsM6bYb/Todoulpe?node-id=0%3A1)
+### [Here is the link to the figma:](https://www.figma.com/file/QYftIdEte7uYYGtIsM6bYb/Todoulpe?node-id=0%3A1)
 * a sign-in page
 * a sign-up page
 * Todoulpe’s main page; When the user clicks on a task, a modal opens and they can leave a comment.
