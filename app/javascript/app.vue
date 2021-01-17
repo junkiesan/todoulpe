@@ -7,10 +7,7 @@
        <!-- NEW TASK FORM -->
     <div class="container border">
       <div class="row new">
-        <form class="form-inline" @submit.prevent="addTask">
-          <button v-on:click="addTask">
-            <i class="material-icons">add</i>
-          </button>
+        <form class="form-inline task-new" @submit.prevent="addTask">
           <label class="sr-only" for="inline-email">Titre</label>
           <input type="text" class="form-control mb-2 mr-sm-2" id="inline-email new-task-form" placeholder="Votre tâche" v-model="newTask" required>
 
@@ -29,22 +26,25 @@
   <!-- DISPLAY TASK NOT DONE  -->
       <div>
         <ul class="container">
-          <li v-if="task.status === false" v-for="task in tasks" :key="task.id">
+          <div v-if="task.status === false" v-for="task in tasks" :key="task.id" class="task">
             <input type="checkbox"  v-on:change="doneTask(task.id)" v-model="task.status" />
-            <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.title }}</label>
-            <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.priority }}</label>
-            <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.deadline }}</label>
-          </li>
+            <label v-bind:id="'task_' + task.id">{{ task.title }} {{task.id}}</label>
+            <label v-bind:id="'task_' + task.id">{{ task.priority }}</label>
+            <label v-bind:id="'task_' + task.id">{{ task.deadline }}</label>
+            <button v-bind:id="'task_' + task.id" v-on:click="destroyTask(id)">
+              <i>Destroy</i>
+            </button>
+          </div>
         </ul>
         
   <!-- DISPLAY TASK  DONE  -->
         <ul class="container">
-          <li v-if="task.status === true" v-for="task in tasks" :key="task.id">
+          <div v-if="task.status === true" v-for="task in tasks" :key="task.id" class="task-done">
               <input type="checkbox" />
-              <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.title }}</label>
-              <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.priority }}</label>
-              <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.deadline }}</label> 
-          </li>
+              <label v-bind:for="'task_' + task.id">{{ task.title }} {{task.id}}</label>
+              <label v-bind:for="'task_' + task.id">{{ task.priority }}</label>
+              <label v-bind:for="'task_' + task.id">{{ task.deadline }}</label> 
+          </div>
         </ul>
       </div>
     </div>
@@ -54,7 +54,6 @@
 <script>
 import Rails from '@rails/ujs';
 import Header from './packs/components/Header.vue'
-import { EventBus } from './packs/application.js'
 
 export default {
   components: {
@@ -66,20 +65,22 @@ export default {
       tasks: this.original_tasks,
       status: false,
       newTask: '',
+      completed: [],
+      id: this.id,
     }
   },
   methods: {
     doneTask: function () {
       this.status = true
       var data = new FormData
-      data.append("task[status]", this.status)
+      data.append("task[status]", this.status.true)
       Rails.ajax({
-        url: `tasks/${task.id}`,
+        url: `tasks/${this.task.id}`,
         type: "PATCH",
         data: data,
         dataType: "json",
         success: (data) => {
-          const index = window.store.tasks.findIndex(item => item.id == this.task.id)
+          const index = window.store.tasks.findIndex(task => task.id == this.task.id)
           window.store.tasks[index].tasks.push(data)
           this.message = ""
           this.$nextTick(() => { this.$refs.newStatus.focus() })
@@ -107,21 +108,31 @@ export default {
           }
       })
     },
-      taskCompleted: function () {
-      EventBus.$emit('mark-as-completed', this.status)
-    }
-  },
-  created: function () {
-    EventBus.$on('mark-as-completed', function(data) {
+    destroyTask: function () {
+      // var data = new FormData
+      // data.append("task[id]", id)
+        Rails.ajax({
+          url: `/tasks/${this.id}`,
+          type: "DELETE",
+          // data: data,
+          dataType: "json",
+          success: (data) => {
+            const index = window.store.tasks.findIndex(item => item.id == this.list.id)
+            window.store.tasks[index].tasks.push(data)
+          }
+      })
+
+    },
+    progressBar:function () {
       if(data) {
         document.getElementById('counter').innerText--;
-        document.getElementById('taskProgress').value-=25;
+        document.getElementById('taskProgress').value-=(100 / tasks.length);
       } else {
         document.getElementById('counter').innerText++;
-        document.getElementById('taskProgress').value+=25;
+        document.getElementById('taskProgress').value+=(100 / tasks.length);
       }
-    })
-  }
+    }
+  },
 }
 </script>
 
@@ -158,4 +169,26 @@ export default {
     border: 10px solid #BCEED9;
     border-radius: 5px;
   }
+
+  .task {
+    border: 2px solid #3C2E58;
+    border-radius: 10px;
+    margin-bottom: 0.875rem;
+    padding-left: 1rem;
+  }
+
+  .task-done {
+    border: 3px solid #BCEED9;
+    border-radius: 10px;
+    padding-left: 1rem;
+  }
+
+  .task-new {
+    border: 1px solid #F4B2B0;
+    border-radius: 10px;
+    margin: 1rem;
+    padding: 0.875rem;
+    width: 100%;
+  }
+
 </style>
