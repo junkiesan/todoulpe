@@ -28,10 +28,12 @@
         <ul class="container">
           <div v-if="task.status === false" v-for="task in tasks" :key="task.id" class="task">
             <input type="checkbox"  v-on:change="doneTask(task.id)" v-model="task.status" />
-            <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.title }}</label>
-            <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.priority }}</label>
-            <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.deadline }}</label>
-            <img source=""></img>
+            <label v-bind:id="'task_' + task.id">{{ task.title }} {{task.id}}</label>
+            <label v-bind:id="'task_' + task.id">{{ task.priority }}</label>
+            <label v-bind:id="'task_' + task.id">{{ task.deadline }}</label>
+            <button v-bind:id="'task_' + task.id" v-on:click="destroyTask(id)">
+              <i>Destroy</i>
+            </button>
           </div>
         </ul>
         
@@ -39,9 +41,9 @@
         <ul class="container">
           <div v-if="task.status === true" v-for="task in tasks" :key="task.id" class="task-done">
               <input type="checkbox" />
-              <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.title }}</label>
-              <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.priority }}</label>
-              <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.deadline }}</label> 
+              <label v-bind:for="'task_' + task.id">{{ task.title }} {{task.id}}</label>
+              <label v-bind:for="'task_' + task.id">{{ task.priority }}</label>
+              <label v-bind:for="'task_' + task.id">{{ task.deadline }}</label> 
           </div>
         </ul>
       </div>
@@ -52,7 +54,6 @@
 <script>
 import Rails from '@rails/ujs';
 import Header from './packs/components/Header.vue'
-import { EventBus } from './packs/application.js'
 
 export default {
   components: {
@@ -78,7 +79,7 @@ export default {
         data: data,
         dataType: "json",
         success: (data) => {
-          const index = window.store.tasks.findIndex(item => item.id == this.task.id)
+          const index = window.store.tasks.findIndex(task => task.id == this.task.id)
           window.store.tasks[index].tasks.push(data)
           this.message = ""
           this.$nextTick(() => { this.$refs.newStatus.focus() })
@@ -105,6 +106,21 @@ export default {
             this.$nextTick(() => { this.$refs.newTaskPriority.focus() })
           }
       })
+    },
+    destroyTask: function (id) {
+      var data = new FormData
+      data.append("task[id]", id)
+        Rails.ajax({
+          url: `/tasks/6`,
+          type: "DELETE",
+          data: data,
+          dataType: "json",
+          success: (data) => {
+            const index = window.store.tasks.findIndex(item => item.id == this.list.id)
+            window.store.tasks[index].tasks.push(data)
+          }
+      })
+
     },
     progressBar:function () {
       if(data) {
