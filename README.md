@@ -1,4 +1,4 @@
-# Todoulpe Application
+# [Todoulpe Application](https://todoulpe.herokuapp.com/)
 
 Todoulpe is an AJAX todo-like application inspired by Poulpe’s design.
 I usually work with Rails only but I thought it would be interesting to implement this project with Vue.js. I first tried this javascript framework last month and I really liked working with it on small projects, it felt like it would work well with Rails.
@@ -161,4 +161,3 @@ I haven’t found a lot of documentation on connecting Rails and Vue, my theory 
 * Refacto my code on Vue.js in components
 * Add modale with the cute poulpe
 * Cleaning and improving my code
-
