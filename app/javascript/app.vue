@@ -66,6 +66,7 @@ export default {
       status: false,
       newTask: '',
       completed: [],
+      id: this.id,
     }
   },
   methods: {
@@ -107,13 +108,13 @@ export default {
           }
       })
     },
-    destroyTask: function (id) {
-      var data = new FormData
-      data.append("task[id]", id)
+    destroyTask: function () {
+      // var data = new FormData
+      // data.append("task[id]", id)
         Rails.ajax({
-          url: `/tasks/6`,
+          url: `/tasks/${this.id}`,
           type: "DELETE",
-          data: data,
+          // data: data,
           dataType: "json",
           success: (data) => {
             const index = window.store.tasks.findIndex(item => item.id == this.list.id)
