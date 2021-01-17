@@ -7,10 +7,7 @@
        <!-- NEW TASK FORM -->
     <div class="container border">
       <div class="row new">
-        <form class="form-inline" @submit.prevent="addTask">
-          <button v-on:click="addTask">
-            <i class="material-icons">add</i>
-          </button>
+        <form class="form-inline task-new" @submit.prevent="addTask">
           <label class="sr-only" for="inline-email">Titre</label>
           <input type="text" class="form-control mb-2 mr-sm-2" id="inline-email new-task-form" placeholder="Votre tâche" v-model="newTask" required>
 
@@ -168,4 +165,13 @@ export default {
     border-radius: 10px;
     padding-left: 1rem;
   }
+
+  .task-new {
+    border: 1px solid #F4B2B0;
+    border-radius: 10px;
+    margin: 1rem;
+    padding: 0.875rem;
+    width: 100%;
+  }
+
 </style>
