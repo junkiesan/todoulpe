@@ -29,22 +29,23 @@
   <!-- DISPLAY TASK NOT DONE  -->
       <div>
         <ul class="container">
-          <li v-if="task.status === false" v-for="task in tasks" :key="task.id">
+          <div v-if="task.status === false" v-for="task in tasks" :key="task.id" class="task">
             <input type="checkbox"  v-on:change="doneTask(task.id)" v-model="task.status" />
             <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.title }}</label>
             <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.priority }}</label>
             <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.deadline }}</label>
-          </li>
+            <img source=""></img>
+          </div>
         </ul>
         
   <!-- DISPLAY TASK  DONE  -->
         <ul class="container">
-          <li v-if="task.status === true" v-for="task in tasks" :key="task.id">
+          <div v-if="task.status === true" v-for="task in tasks" :key="task.id" class="task-done">
               <input type="checkbox" />
               <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.title }}</label>
               <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.priority }}</label>
               <label v-bind:for="'task_' + task.id" class="word-color-black">{{ task.deadline }}</label> 
-          </li>
+          </div>
         </ul>
       </div>
     </div>
@@ -66,15 +67,16 @@ export default {
       tasks: this.original_tasks,
       status: false,
       newTask: '',
+      completed: [],
     }
   },
   methods: {
     doneTask: function () {
       this.status = true
       var data = new FormData
-      data.append("task[status]", this.status)
+      data.append("task[status]", this.status.true)
       Rails.ajax({
-        url: `tasks/${task.id}`,
+        url: `tasks/${this.task.id}`,
         type: "PATCH",
         data: data,
         dataType: "json",
@@ -107,21 +109,16 @@ export default {
           }
       })
     },
-      taskCompleted: function () {
-      EventBus.$emit('mark-as-completed', this.status)
-    }
-  },
-  created: function () {
-    EventBus.$on('mark-as-completed', function(data) {
+    progressBar:function () {
       if(data) {
         document.getElementById('counter').innerText--;
-        document.getElementById('taskProgress').value-=25;
+        document.getElementById('taskProgress').value-=(100 / tasks.length);
       } else {
         document.getElementById('counter').innerText++;
-        document.getElementById('taskProgress').value+=25;
+        document.getElementById('taskProgress').value+=(100 / tasks.length);
       }
-    })
-  }
+    }
+  },
 }
 </script>
 
@@ -157,5 +154,18 @@ export default {
   .border {
     border: 10px solid #BCEED9;
     border-radius: 5px;
+  }
+
+  .task {
+    border: 2px solid #3C2E58;
+    border-radius: 10px;
+    margin-bottom: 0.875rem;
+    padding-left: 1rem;
+  }
+
+  .task-done {
+    border: 3px solid #BCEED9;
+    border-radius: 10px;
+    padding-left: 1rem;
   }
 </style>

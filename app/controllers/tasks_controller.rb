@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     # pundit scope
     @tasks = policy_scope(Task)
     # Defined all kind of tasks
-    @tasks = Task.all
+    @tasks = Task.where(user_id: current_user.id)
     # @todo = Task.todo
     # @completed = Task.completed
     @comment = Comment.new
